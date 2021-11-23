@@ -1,0 +1,32 @@
+<codelabeller-navigation *ngIf="authService.hasMadeSuccessfulRequests$.value === true" [toolbar]="toolbar" [sideNav]="sideNav">
+  <div class="discreet-button">
+    <p-button
+      [label]="(!fileService.isFileCurrentlyAssigned$.value && !fileService.hasRespondedToAllFiles$.value) ? 'Back to current file' : ''"
+      [disabled]="(fileService.isFileCurrentlyAssigned$.value || fileService.hasRespondedToAllFiles$.value)"
+      styleClass="p-button-sm p-button-link" (onClick)="onBackToCurrentFile()">
+    </p-button>
+  </div>
+
+  <div class="p-d-flex card-container">
+    <div class="p-mr-2 p-as-stretch left-card">
+      <codelabeller-code-viewer [style]="{height: '100%', width: '100%'}" [sourceFile]="currentSourceFile">
+      </codelabeller-code-viewer>
+    </div>
+
+    <div class="p-mr-1 p-as-stretch right-card">
+      <codelabeller-response-area
+        [infoText]="!(fileService.currentFile$.value) ? '' : fileService.hasSubmittedCurrentFile$.value ? updateResponseInfoText : newResponseInfoText"
+        [inputFields]="inputFields" (responseChange)="onResponseChange($event)"
+        (submittedResponse)="onResponseSubmit($event)"></codelabeller-response-area>
+    </div>
+  </div>
+</codelabeller-navigation>
+
+<ng-template #toolbar>
+  <codelabeller-toolbar (sideButtonClick)="toggleSideNav()"></codelabeller-toolbar>
+</ng-template>
+
+<ng-template #sideNav>
+  <codelabeller-project-sidenav headerText="Current Project" emptyMessage="No items." [files]="files"
+    (selectedFile)="onFileSelected($event)"></codelabeller-project-sidenav>
+</ng-template>

@@ -1,0 +1,24 @@
+.card-container {
+  min-height: 96.25%;
+  max-height: 96.25%;
+}
+
+.left-card {
+  width: 50%;
+  padding: 0px 10px 20px 20px;
+}
+
+.right-card {
+  width: 50%;
+  padding: 0px 20px 20px 10px;
+}
+
+.discreet-button {
+  padding-left: 8px;
+  max-height: 3.75%;
+}
+
+::ng-deep .p-button:focus { 
+  outline: none !important;
+  box-shadow: none !important;
+}

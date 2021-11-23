@@ -1,0 +1,8 @@
+<button pButton icon="pi" class="p-button-rounded p-button-text"
+  [ngClass]="{'p-button-rounded': true, 'p-button-text': userProfile?.profileImageSrc}"
+  [ngStyle]="{'background-color': 'rgba(0, 0, 0, 0)', 'border':'white'}" [pTooltip]="getTooltipText()"
+  tooltipPosition="bottom" tooltipStyleClass="profile-tooltip" [showDelay]="500">
+
+  <img *ngIf="userProfile?.profileImageSrc" class="profile-image" [src]="userProfile?.profileImageSrc">
+  <i *ngIf="!(userProfile?.profileImageSrc)" class="far fa-user-circle profile-icon"></i>
+</button>

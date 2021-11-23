@@ -1,0 +1,114 @@
+<div class="projects-toolbar" *ngIf="!showFiles">
+  <p-toolbar styleClass="p-mb-4">
+    <div class="p-toolbar-group-left">
+      <button pButton pRipple label="New Project" icon="pi pi-plus" class="p-button-success p-mr-2"
+        (click)="onAddProject()"></button>
+    </div>
+
+    <div class="p-toolbar-group-right">
+      <button pButton pRipple label="" icon="fas fa-trash-alt" class="p-button-danger p-ml-2"
+        (click)="onDeleteProject()"></button>
+    </div>
+  </p-toolbar>
+</div>
+
+<div class="projects-section" *ngIf="!showFiles">
+  <codelabeller-data-table *ngIf="!showFiles" title="Manage Projects" dataName="projects" [data]="projects"
+    [columns]="columns" [isLoading]="loading" actionButtonColumnLabel="Manage Project" actionButtonIcon="fa fa-edit"
+    (clickedRow)="onProjectRowClicked($event)" downloadFileName="CodeLabeller_Projects">
+  </codelabeller-data-table>
+</div>
+
+<div class="files-section" *ngIf="showFiles">
+  <p-toolbar styleClass="p-mb-4">
+    <div class="p-toolbar-group-left ">
+      <p-button class="p-mr-2" multiple="multiple" label="Back to all projects" styleClass="p-button"
+        (onClick)="onBackToAllProjects()">
+      </p-button>
+
+      <p-fileUpload #fileUploaderButton mode="basic" accept=".zip" [maxFileSize]="1073741824" [fileLimit]="1"
+      (onSelect)="onSelect($event)" label="Upload Files to Project" chooseLabel="Import Files To Project"
+      class="p-d-inline-block p-button-success" styleClass="p-button-success"></p-fileUpload>
+    </div>
+    
+    <div class="p-toolbar-group-right">
+      <span>Is project enabled?</span>
+      <p-checkbox #checkbox class="p-ml-2" [(ngModel)]="currentProject!.isActive" [binary]="true" (onChange)="onChangeProjectEnablement()">
+      </p-checkbox>
+    </div>
+  </p-toolbar>
+
+  <codelabeller-data-table [title]="'Project Files' + (currentProject?.name ? ' (' + currentProject?.name + ')': '')" dataName="files" [data]="projectFiles" [columns]="fileColumns"
+    [isLoading]="filesLoading" [enableActionButton]="true" actionButtonColumnLabel="Manage File" (clickedRow)="onFileRowClicked($event)"
+    actionButtonIcon="fa fa-edit" [downloadFileName]="'CodeLabeller_ProjectFiles-' + currentProject?.name">
+  </codelabeller-data-table>
+</div>
+
+<p-dialog id="addDialog" header="Add Project" [(visible)]="addingProject" [closeOnEscape]="true"
+  [style]="{width: '50vw', height: '90%'}" [modal]="true">
+  <p-divider></p-divider>
+  <codelabeller-input-form #addInputForm [inputFields]="addFormInputFields" (submittedResponse)="onSubmitAdd($event)">
+  </codelabeller-input-form>
+</p-dialog>
+
+<p-dialog id="deleteDialog" header="Delete Project" [(visible)]="deletingProject" [closeOnEscape]="true"
+  [style]="{width: '50vw', height: '90%'}" [modal]="true">
+  <p-divider></p-divider>
+  <b>Only projects that do not have any files may be deleted. Projects that cannot be deleted will not be shown
+    below.</b>
+  <br />
+  <br />
+  <codelabeller-input-form #deleteInputForm [scrollable]="false" [inputFields]="deleteFormInputFields"
+    (submittedResponse)="onSubmitDelete($event)">
+  </codelabeller-input-form>
+</p-dialog>
+
+<p-dialog id="manageDialog" header="Manage File" [(visible)]="managingFile" [closeOnEscape]="true"
+  [style]="{width: '50vw', height: '90%'}" [modal]="true">
+
+  <span>
+    <b>
+      {{ fileBeingManaged?.path }}/{{ fileBeingManaged?.name }}
+    </b>
+  </span>
+  <p-divider></p-divider>
+
+  <h5>A file needs to be both enabled and accepting responses for it to be assigned to a user.</h5>
+
+  <codelabeller-input-form #manageInputForm [scrollable]="false" [inputFields]="manageFormInputFields"
+    (submittedResponse)="onSubmitManage($event)">
+  </codelabeller-input-form>
+</p-dialog>
+
+<p-dialog id="deleteDialog" [header]="'Upload Files to Project: ' + currentProject?.name" [(visible)]="zipSelected"
+  [closeOnEscape]="true" [style]="{width: '90vw', height: '90%'}" [modal]="true">
+  The zip file should contain a top-level directory/folder with the same name as the project, that contains the project's files.
+  <p-divider></p-divider>
+
+  <p-toolbar styleClass="p-mb-4">
+    <div class="p-toolbar-group-left">
+      <b>Please review the following files in the selected zip file. Valid and rejected files will be shown in their
+        respective tables, if any.</b>
+    </div>
+
+    <div class="p-toolbar-group-right" styleClass="p-button-success">
+      <span>Files selected for upload: {{ selectedForUploadCount }}</span>
+      <button pButton pRipple [label]="buttonText" [icon]="buttonIcon" class="p-button-success p-ml-3"
+        [disabled]="selectedForUploadCount === 0 || isUploadingZip" (click)="onUploadProjectFiles()"></button>
+    </div>
+  </p-toolbar>
+
+  <codelabeller-data-table *ngIf="filesToUpload.length > 0" title="Files Pending Upload" dataName="files"
+    [data]="filesToUpload" [columns]="filesPendingUploadColumns" [isLoading]="filesLoading" [enableActionButton]="true"
+    actionButtonColumnLabel="Toggle Selection" actionButtonIcon="fa fa-exchange-alt"
+    (clickedRow)="onPendingFileClicked($event)" [downloadFileName]="'CodeLabeller_FilesPendingUpload-' + currentProject?.name">
+  </codelabeller-data-table>
+
+  <br *ngIf="filesToUpload.length > 0 && filesRejectedForUpload.length > 0" />
+  <br *ngIf="filesToUpload.length > 0 && filesRejectedForUpload.length > 0" />
+
+  <codelabeller-data-table *ngIf="filesRejectedForUpload.length > 0" title="Rejected Files" dataName="files"
+    [data]="filesRejectedForUpload" [columns]="filesRejectedForUploadColumns" [isLoading]="filesLoading"
+    [enableActionButton]="false" [downloadFileName]="'CodeLabeller_FilesRejectedForUpload-' + currentProject?.name">
+  </codelabeller-data-table>
+</p-dialog>

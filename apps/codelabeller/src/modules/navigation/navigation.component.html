@@ -1,0 +1,13 @@
+<ng-container *ngTemplateOutlet="toolbar"></ng-container>
+
+<section class="nav-container">
+  <aside *ngIf="sideNav" class="sidenav" [style.width]="sideNavWidth" mwlResizable [resizeEdges]="{ right: sideNavVisible }" (resizing)="onResizing($event)">
+    <ng-container [style.height]="'100%'">
+      <ng-container *ngTemplateOutlet="sideNav"></ng-container>
+    </ng-container>
+  </aside>
+
+  <div class="main-body">
+    <ng-content></ng-content>
+  </div>
+</section>

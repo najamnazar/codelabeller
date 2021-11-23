@@ -1,0 +1,59 @@
+<button pButton icon="pi" class="p-button-rounded" [style]="{'background-color': 'rgba(0, 0, 0, 0)', 'border':'white'}"
+  pTooltip="Help" tooltipPosition="bottom" tooltipStyleClass="help-tooltip" [showDelay]="500" (click)="show()">
+  <i class="fa fa-question-circle help-icon"></i>
+</button>
+
+<p-dialog header="Help" [(visible)]="visible" [modal]="true" [style]="{width: '75vw'}" [baseZIndex]="10000"
+  [maximizable]="true">
+
+  <ng-template pTemplate="content">
+
+    <p>
+      You will be randomly assigned one Java source code file at a time. You <b>must</b> submit a response for this file
+      before you can submit a response for another.
+      <br />
+      <br />
+      <b>At minimum</b>, you will need to identify/specify the following:
+    </p>
+    <ul>
+      <li>
+        The design pattern used in the source code file.
+      </li>
+      <li>
+        Your confidence level in selecting the said design pattern.
+      </li>
+      <li>
+        A 2-3 sentence summary of what the source code in the current file does.
+      </li>
+    </ul>
+    <p>
+      Optionally, you may also include explanations regarding your decisions for the above.
+    </p>
+    <em>
+      <b>Important:</b>
+      <br />
+      If the pattern is not listed, please select <b>"~Other Pattern~"</b> and type in the name of the
+      pattern into the pattern explanation field directly below.
+      <br />
+      If the design pattern identified also spans across or involves several other files, <b>please include these
+        findings
+        in the summary section</b>.
+    </em>
+
+    <br />
+    <br />
+
+    <p>
+      You may freely browse any other file in the same project as the currently assigned file, especially if it has
+      other
+      dependencies within the same project. You may also browse your previous responses and edit them at any time.
+    </p>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-divider></p-divider>
+
+    <button pButton icon="fa fa-times" (click)="visible=false" label="Close" class=""
+      styleClass="p-button-text"></button>
+  </ng-template>
+</p-dialog>

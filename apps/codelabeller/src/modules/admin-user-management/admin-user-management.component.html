@@ -1,0 +1,68 @@
+<div class="users-toolbar">
+  <p-toolbar styleClass="p-mb-4">
+    <div class="p-toolbar-group-left">
+      <button pButton pRipple label="New User" icon="pi pi-plus" class="p-button-success p-mr-2"
+        (click)="onAddUser()"></button>
+    </div>
+
+    <div class="p-toolbar-group-right" styleClass="p-button-success">
+      <span>Allow unlisted users?</span>
+      <p-checkbox #checkbox class="p-ml-2"  [(ngModel)]="allowUnlisted" [binary]="true" (onChange)="onChangeAllowUnlistedUsers()">
+      </p-checkbox>
+
+      <button pButton pRipple label="" icon="fas fa-trash-alt" class="p-button-danger p-ml-6"
+        (click)="onDeleteUser()"></button>
+    </div>
+  </p-toolbar>
+</div>
+
+<div class="users-section">
+  <codelabeller-data-table title="Manage Users" dataName="users" [data]="users" [columns]="columns"
+    [isLoading]="loading" actionButtonColumnLabel="Manage" actionButtonIcon="fa fa-edit"
+    (clickedRow)="onRowClicked($event)" downloadFileName="CodeLabeller_Users">
+  </codelabeller-data-table>
+</div>
+
+<p-dialog id="addDialog" header="Add User" [(visible)]="addingUser" [closeOnEscape]="true" [style]="{width: '50vw', height: '90%'}"
+  [modal]="true">
+  <p-divider></p-divider>
+  <codelabeller-input-form #addInputForm [inputFields]="addFormInputFields" (submittedResponse)="onSubmitAdd($event)">
+  </codelabeller-input-form>
+</p-dialog>
+
+<p-dialog id="manageDialog" header="Manage User" [(visible)]="managingUser" [closeOnEscape]="true"
+  [style]="{width: '50vw', height: '90%'}" [modal]="true">
+
+  <span>
+    <b>
+      {{ userBeingManaged?.givenName }} {{ userBeingManaged?.familyName }} ({{ userBeingManaged?.email }})
+    </b>
+  </span>
+
+  <ng-container *ngIf="userBeingManaged?.currentFile">
+    <br />
+    
+    Current file: <em>{{userBeingManaged?.currentFile}}</em>
+    <button pButton pRipple label="" icon="fas fa-unlink" class="p-button-sm p-button-rounded p-button-danger p-ml-2"
+      (click)="removeFileAssignment(userBeingManaged)" pTooltip="Remove File Assignment" tooltipPosition="right"
+      tooltipStyleClass="remove-tooltip" [showDelay]="500"></button>
+  </ng-container>
+
+  <p-divider></p-divider>
+
+  <codelabeller-input-form #manageInputForm [scrollable]="false" [inputFields]="manageFormInputFields"
+    (submittedResponse)="onSubmitManage($event)">
+  </codelabeller-input-form>
+</p-dialog>
+
+<p-dialog id="deleteDialog" header="Delete User" [(visible)]="deletingUser" [closeOnEscape]="true"
+  [style]="{width: '50vw', height: '90%'}" [modal]="true">
+  <p-divider></p-divider>
+  <b>Only users that have not submitted any responses may be deleted. Users that cannot be deleted will not be shown
+    below.</b>
+  <br />
+  <br />
+  <codelabeller-input-form #deleteInputForm [scrollable]="false" [inputFields]="deleteFormInputFields"
+    (submittedResponse)="onSubmitDelete($event)">
+  </codelabeller-input-form>
+</p-dialog>

@@ -1,0 +1,21 @@
+.toolbar-heading {
+  font-size: larger;
+}
+
+.toolbar-margin-left {
+  margin: 0px 0px 0px 12px;
+}
+
+.toolbar-margin-right {
+  margin: 0px 12px 0px 0px;
+}
+
+.toolbar-button {
+  color: white !important;
+}
+
+::ng-deep .menu-icon {
+  align-content: center;
+  width: 20px !important;
+  height: 16px !important;
+}

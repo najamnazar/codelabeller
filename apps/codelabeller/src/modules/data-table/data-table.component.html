@@ -1,0 +1,68 @@
+<p-table #datatable id="datatable" styleClass="p-datatable-style p-datatable-gridlines p-datatable-striped p-datatable-sm"
+  [columns]="columns" [value]="data" [paginator]="true" [filterDelay]="0" [showCurrentPageReport]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} {{ dataName }}" [rows]="10" [sortMode]="'multiple'"
+  [rowsPerPageOptions]="[10,25,50, 100]" [rowHover]="true" [exportFilename]="downloadFileName" [scrollable]="true"
+  scrollHeight="flex" [reorderableColumns]="true">
+
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+      {{ title }}
+      <div>
+        <button *ngIf="enableDataDownload" class="p-mr-4" type="button" pButton pRipple icon="fas fa-file-csv"
+          (click)="datatable.exportCSV()" pTooltip="Download as CSV" tooltipStyleClass="download-tooltip"
+          tooltipPosition="bottom"></button>
+
+        <button pButton label="Clear" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash"
+          (click)="clear(datatable)"></button>
+
+        <span class="p-input-icon-left">
+          <i class="fas fa-search input-text-area-icon"></i>
+          <input pInputText type="text" (input)="datatable.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Search Everywhere" />
+        </span>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="colgroup">
+    <colgroup>
+      <col *ngFor="let col of columns" [ngStyle]="{ width: col.widthPercentage ?? '100%' }">
+    </colgroup>
+  </ng-template>
+
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns" pReorderableColumn [pSortableColumn]="col.field">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          {{ col.header }}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+          <p-columnFilter [type]="col.filterType ?? 'text'" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th *ngIf="enableActionButton" class="action-button-column">{{ actionButtonColumnLabel }}</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-data let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns">
+        <ng-container *ngIf="!isLoading">
+          <p>{{ data[col.field] }}</p>
+        </ng-container>
+        <p-skeleton *ngIf="isLoading" borderRadius="16px"></p-skeleton>
+      </td>
+
+      <td *ngIf="enableActionButton" class="action-button-column action-button-cell">
+        <button pButton type="button" class="p-button-secondary" [icon]="actionButtonIcon"
+          (click)="onActionButtonClicked(data)"></button>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="columns.length">{{ emptyMessage }}</td>
+    </tr>
+  </ng-template>
+</p-table>

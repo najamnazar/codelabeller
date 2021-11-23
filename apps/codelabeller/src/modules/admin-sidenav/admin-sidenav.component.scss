@@ -1,0 +1,12 @@
+.navbar-menu {
+  height: 100% !important;
+  background-color: white;
+}
+
+::ng-deep #admin-menu > div {
+  height: 100% !important;
+  width: 100% !important;
+  padding: 0 !important;
+  border: unset !important;
+  font-size: 20px;
+}

@@ -1,0 +1,30 @@
+.navbar-tree {
+  height: 100% !important;
+  background-color: white;
+}
+
+.label-text {
+  font-size: 12px;
+}
+
+::ng-deep .file-tooltip {
+  font-size: 12px;
+  min-width: fit-content;
+}
+
+::ng-deep .p-tree {
+  height: 100%;
+  padding: 0;
+  border: unset;
+
+  .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler {
+    margin-right: 0.5rem !important;
+    min-width: 1rem !important;
+    max-width: 1rem !important;
+    height: 1rem !important;
+  }
+}
+
+::ng-deep .p-tree-empty-message {
+  font-size: 14px;
+}

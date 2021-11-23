@@ -1,0 +1,17 @@
+<codelabeller-navigation *ngIf="authService.hasMadeSuccessfulRequests$.value === true" [toolbar]="toolbar" [sideNav]="sideNav">
+  <codelabeller-admin-results *ngIf="currentRoute === '/'" class="card"></codelabeller-admin-results>
+  <codelabeller-admin-design-pattern-management *ngIf="currentRoute === '/design-patterns'" class="card"></codelabeller-admin-design-pattern-management>
+  <codelabeller-admin-user-management *ngIf="currentRoute === '/users'" class="card"></codelabeller-admin-user-management>
+  <codelabeller-admin-project-management *ngIf="currentRoute === '/projects'" class="card"></codelabeller-admin-project-management>
+  <codelabeller-admin-all-responses-management *ngIf="currentRoute === '/all-responses'" class="card"></codelabeller-admin-all-responses-management>
+  <codelabeller-admin-upload-jobs-management *ngIf="currentRoute === '/upload-jobs'" class="card"></codelabeller-admin-upload-jobs-management>
+  <codelabeller-admin-settings-management *ngIf="currentRoute === '/settings'" class="card"></codelabeller-admin-settings-management>
+</codelabeller-navigation>
+
+<ng-template #toolbar>
+  <codelabeller-toolbar (sideButtonClick)="toggleSideNav()"></codelabeller-toolbar>
+</ng-template>
+
+<ng-template #sideNav>
+  <codelabeller-admin-sidenav></codelabeller-admin-sidenav>
+</ng-template>

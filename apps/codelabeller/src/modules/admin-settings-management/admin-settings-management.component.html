@@ -1,0 +1,54 @@
+<div class="p-d-flex p-flex-column">
+    <div class="card">
+      <h1 class="title-text">
+        Settings
+      </h1>
+    </div>
+    <div>
+      <div class="p-mt-auto">
+        <div class="p-d-flex card-container">
+          <div class="p-mr-2 p-as-stretch card">
+            <p-card styleClass="p-card-shadow">
+              <span class="title-text">
+                <div>
+                  <span class="card-text"><b>Project File Upload Defaults</b></span>
+                  <br />
+                  <br />
+                  <form class="full-height" [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+                    <span class="card-subtext">Are uploaded files enabled by default?</span>
+                    <br />
+                    <span>
+                        <p-dropdown formControlName="isEnabled" [required]="true" 
+                        [options]="[{ name: 'Yes', state: true }, { name: 'No', state: false }]" optionLabel="name" optionValue="state"
+                        [autoDisplayFirst]="false" [showClear]="true"></p-dropdown>
+                    </span>
+                    <br />
+                    <br />
+                    <span class="card-subtext">Are uploaded files accepting responses by default?</span>
+                    <br />
+                    <span>
+                        <p-dropdown formControlName="isAcceptingResponses" [required]="true"
+                        [options]="[{ name: 'Yes', state: true }, { name: 'No', state: false }]" optionLabel="name" optionValue="state"
+                        [autoDisplayFirst]="false" [showClear]="true"></p-dropdown>
+                    </span>
+                    <br />
+                    <br />
+                    <span class="card-subtext">Default number of responses required for uploaded files</span>
+                    <br />
+                    <span>
+                        <input pInputText formControlName="numResponsesRequired" value="3" type="text" (input)="null"
+                        placeholder="Enter a number" />
+                    </span>
+                    <br />
+                    <br />
+                    <button pButton type="button" label="Submit" icon="fa fa-check"
+                    [disabled]="!settingsForm.valid || settingsForm.pristine" (click)="onSubmit()" [loading]="isLoading"></button>
+                  </form>
+                </div>
+              </span>
+            </p-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,19 @@
+<div class="navbar-tree">
+  <ng-scrollbar track="all">
+    <p-tree [value]="files" [emptyMessage]="emptyMessage" (onNodeSelect)="onNodeSelect($event)"
+      (onNodeExpand)="onNodeExpand($event)" (onNodeCollapse)="onNodeCollapse($event)" selectionMode="single"
+      [(selection)]="selectedNode">
+
+      <ng-template *ngIf="headerText" pTemplate="header">
+        {{ headerText }}
+      </ng-template>
+
+      <ng-template let-node pTemplate="default">
+        <span class="label-text" pTooltip="{{node.label}}" tooltipPosition="bottom" tooltipStyleClass="file-tooltip"
+          [showDelay]="500">
+          {{node.label}}
+        </span>
+      </ng-template>
+    </p-tree>
+  </ng-scrollbar>
+</div>

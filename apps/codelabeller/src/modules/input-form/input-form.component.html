@@ -1,0 +1,53 @@
+<ng-container *ngIf="scrollable">
+  <p-scrollPanel [style]="{ height: '100%'}">
+    <ng-container *ngTemplateOutlet="formTemplate"></ng-container>
+  </p-scrollPanel>
+</ng-container>
+
+<ng-container *ngIf="!scrollable">
+  <ng-container *ngTemplateOutlet="formTemplate"></ng-container>
+</ng-container>
+
+<ng-template #formTemplate>
+  <form class="full-height" [formGroup]="responseForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+
+      <ng-container *ngFor="let field of inputFields; let i = index">
+        <div class="p-field" [ngClass]="{'padded-top': i === 0, 'unpadded-top':field.getType() === 'slider' }">
+
+          <span class="p-float-label" *ngIf="field.getType() !== 'slider'">
+            <ng-container *ngIf="field.getType() === 'dropdown'">
+              <p-dropdown [inputId]="field.name" [formControlName]="field.name" [required]="field.required"
+                [options]="$any(field).data" [optionLabel]="$any(field).displayKey" [optionValue]="$any(field).valueKey"
+                [autoDisplayFirst]="false" [showClear]="true"></p-dropdown>
+            </ng-container>
+
+            <ng-container *ngIf="field.getType() === 'textBox'">
+              <textarea class="form-textarea" [formControlName]="field.name" [rows]="$any(field).numRowsToShow"
+                pInputTextarea></textarea>
+            </ng-container>
+
+            <label [for]="field.name">{{ field.prompt }}
+              <span class="required-marker" *ngIf="field.required">*</span></label>
+          </span>
+
+          <ng-container *ngIf="field.getType() === 'slider'">
+            <label class="slider-label" [for]="field.name">{{ field.prompt }}
+              <span class="required-marker" *ngIf="field.required">*</span>
+            </label>
+            <p-slider [formControlName]="field.name" [required]="field.required" [min]="$any(field).minValue"
+              [max]="$any(field).maxValue" [step]="$any(field).increment"></p-slider>
+            <span class="slider-selection-info">Current selection: {{ responseForm.controls[field.name].value }}</span>
+          </ng-container>
+
+        </div>
+      </ng-container>
+    </div>
+
+    <div *ngIf="inputFields && inputFields.length > 0" class="padded-bottom submit-button"
+      [pTooltip]="submitButtonTooltipText" tooltipPosition="right" tooltipStyleClass="submit-tooltip" [showDelay]="500">
+      <button pButton type="button" [label]="buttonLabel" icon="fa fa-check"
+        [disabled]="!responseForm.valid || responseForm.pristine" (click)="onSubmit()" [loading]="isLoading"></button>
+    </div>
+  </form>
+</ng-template>

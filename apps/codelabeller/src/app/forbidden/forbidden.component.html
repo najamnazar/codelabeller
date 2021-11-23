@@ -1,0 +1,43 @@
+<div class="p-d-flex p-flex-column">
+  <div class="card">
+    <h1 class="title-text">
+      CodeLabeller
+    </h1>
+  </div>
+  <div>
+    <div class="p-d-flex card-container">
+      <div class="p-mr-2 p-as-stretch card">
+        <p-card styleClass="p-card-shadow">
+          <span class="error-text">
+            <b>Error: Forbidden</b>
+          </span>
+        </p-card>
+      </div>
+    </div>
+  </div>
+  <div class="p-mt-auto">
+    <div class="p-d-flex card-container">
+      <div class="p-mr-2 p-as-stretch card">
+        <p-card styleClass="p-card-shadow">
+          <p *ngIf="!logoutRequired" class="card-text">
+            You do not have sufficient permissions to perform the operation you have just requested.
+            <br />
+            <br />
+            <a routerLink="/">
+              Click here to go back.
+            </a>
+          </p>
+
+          <p *ngIf="logoutRequired" class="card-text">
+            You are not allowed to access CodeLabeller using that account.
+            <br />
+            <br />
+            <a routerLink="/landing">
+              Click here to try logging in again with another account.
+            </a>
+          </p>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>

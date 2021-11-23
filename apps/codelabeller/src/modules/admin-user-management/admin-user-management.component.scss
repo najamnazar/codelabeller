@@ -1,0 +1,20 @@
+.users-toolbar {
+  margin: 20px;
+}
+
+.users-section {
+  margin: 20px;
+  height: 85%
+}
+
+::ng-deep .p-dialog-content {
+  height: 100%;
+}
+
+.muted-text {
+  color: #939da7 !important;
+}
+
+::ng-deep .remove-tooltip {
+  font-size: 12px;
+}

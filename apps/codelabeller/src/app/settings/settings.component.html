@@ -1,0 +1,61 @@
+<codelabeller-navigation *ngIf="isLoggedIn" [toolbar]="toolbar">
+  <div class="p-d-flex p-flex-column">
+    <div class="card">
+      <h1 class="title-text">
+        Settings
+      </h1>
+    </div>
+    <div>
+      <div class="p-mt-auto">
+        <div class="p-d-flex card-container">
+          <div class="p-mr-2 p-as-stretch card">
+            <p-card styleClass="p-card-shadow">
+              <span class="title-text">
+                <div>
+                  <span class="card-text"><b>Your profile</b></span>
+                  <br />
+                  <br />
+                  <span class="card-subtext">Name: {{ displayName }}</span>
+                  <br />
+                  <span class="card-subtext">Email: {{ email }}</span> <br />
+                </div>
+              </span>
+            </p-card>
+          </div>
+        </div>
+      </div>
+      <div class="p-d-flex card-container">
+        <div class="p-mr-2 p-as-stretch card">
+          <p-card styleClass="p-card-shadow">
+            <span class="title-text">
+              <div>
+                <span class="card-text"><b>Application Cache {{ cacheUsage ? "- " + (cacheUsage) + " used" : ""
+                    }}</b></span>
+                <br />
+                <br />
+                <p-button label="Delete Cached File Data" icon="fas fa-trash-alt"
+                  styleClass="p-button-lg p-button-danger p-mr-2" (click)="onDeleteProjFileCache()"></p-button>
+                <p-button label="Delete Unsubmitted Responses" icon="fas fa-trash-alt"
+                  styleClass="p-button-lg p-button-danger" (click)="onDeleteUnsubmittedResponsesCache()"></p-button>
+              </div>
+            </span>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</codelabeller-navigation>
+
+<ng-template #toolbar>
+  <codelabeller-toolbar buttonIcon="fa fa-arrow-left" (sideButtonClick)="onBack()"></codelabeller-toolbar>
+</ng-template>
+
+<p-confirmDialog #confirmDialog header="Confirm Cache Deletion" icon="fa fa-exclamation-triangle">
+  <ng-template pTemplate="footer">
+    <p-button label="Cancel" icon="fas fa-times" styleClass="p-button-lg p-button-outlined p-button-danger"
+      (click)="confirmDialog.reject()"></p-button>
+
+    <p-button label="Proceed" icon="fas fa-check" styleClass="p-button-lg"
+      (click)="confirmDialog.accept()"></p-button>
+  </ng-template>
+</p-confirmDialog>

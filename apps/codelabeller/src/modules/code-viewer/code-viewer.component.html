@@ -1,0 +1,31 @@
+<p-card styleClass="p-card-shadow" [style]="{height: '100%'}">
+  <div class="p-d-flex p-flex-column full-height">
+    <div class="header">
+      <span class="header-text"><b>Source Code</b></span><br />
+
+      <ng-container *ngIf="sourceFile">
+        <span class="info-text">
+          {{ sourceFile.path }}/<b>{{ sourceFile.name }}</b>
+        </span>
+      </ng-container>
+
+      <p-divider></p-divider>
+    </div>
+
+    <div class="body">
+      <ng-container *ngIf="sourceFile">
+        <p-scrollPanel [style]="{ height: '100%'}">
+          <!-- Max width set to 0px to force pre element to not overflow allocated horizontal space when its displayed code is too wide -->
+          <pre class="code-display"><code [highlight]="sourceFile.source" [lineNumbers]="true"></code></pre>
+        </p-scrollPanel>
+      </ng-container>
+
+      <ng-container *ngIf="!sourceFile">
+        <div class="centred-content">
+          <i class="fas fa-code no-file-icon"></i>
+          <h3 class="">No source code to display!</h3>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</p-card>

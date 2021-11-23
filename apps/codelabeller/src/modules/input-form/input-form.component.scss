@@ -1,0 +1,49 @@
+.padded-top {
+  padding-top: 20px;
+}
+
+.unpadded-top {
+  padding-top: 0px;
+}
+
+.padded-bottom {
+  padding-bottom: 20px;
+}
+
+.full-height {
+  height: 100%
+}
+
+.required-marker {
+  color: red;
+}
+
+.form-textarea {
+  resize: vertical;
+}
+
+.slider-label {
+  padding-bottom: 10px;
+}
+
+.slider-selection-info {
+  font-size: 12px;
+}
+
+.submit-button {
+  display: inline-flex;
+}
+
+::ng-deep .p-field {
+  padding-top: 15px;
+}
+
+::ng-deep .p-slider {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+::ng-deep .submit-tooltip {
+  font-size: 12px;
+  min-width: fit-content;
+}

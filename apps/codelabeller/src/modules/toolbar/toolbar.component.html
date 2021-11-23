@@ -1,0 +1,20 @@
+<p-toolbar [style]="{'background-color': '#3f51b5', 'color': '#ffffff', 'border':'0px', 'border-radius':'0px'}">
+  <div class="p-toolbar-group-left">
+    <button *ngIf="showSideButton" pButton type="button" [icon]="buttonIcon" styleClass="p-mr-2"
+      class="p-button-rounded p-button-text toolbar-button toolbar-margin-right" (click)="onSideButtonClick()"></button>
+
+    <span class="toolbar-heading">
+      {{ title }}
+    </span>
+  </div>
+
+  <div class="p-toolbar-group-right">
+    <codelabeller-help class="toolbar-margin-right"></codelabeller-help>
+
+    <codelabeller-user-profile-button class="toolbar-margin-left" (click)="menu.toggle($event)"
+      [userProfile]="userProfile">
+    </codelabeller-user-profile-button>
+
+    <codelabeller-nav-options-menu #menu [showAdmin]="showAdmin"></codelabeller-nav-options-menu>
+  </div>
+</p-toolbar>

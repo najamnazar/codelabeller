@@ -1,0 +1,17 @@
+.patterns-toolbar {
+  margin: 20px;
+}
+
+.patterns-section {
+  margin: 20px;
+  height: 85%
+}
+
+::ng-deep .p-dialog-content {
+  height: 100%;
+}
+
+::ng-deep .submit-tooltip {
+  font-size: 12px;
+  min-width: fit-content;
+}

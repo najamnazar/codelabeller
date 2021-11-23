@@ -1,0 +1,15 @@
+<div class="upload-jobs-section">
+  <codelabeller-data-table title="Upload Jobs" dataName="jobs" [data]="jobs" [columns]="columns"
+    [isLoading]="loading" actionButtonColumnLabel="View Details" actionButtonIcon="fa fa-eye"
+    (clickedRow)="onRowClicked($event)" downloadFileName="CodeLabeller_UploadJobs">
+  </codelabeller-data-table>
+</div>
+
+<p-dialog id="manageDialog" header="View File Upload Job Logs" [(visible)]="viewingUploadJob" [closeOnEscape]="true"
+  [style]="{width: '90vw'}" [modal]="true">
+
+  <codelabeller-data-table title="Logs for Job #{{ uploadJobBeingViewed?.jobId }}" dataName="job logs"
+    [data]="jobLogLines" [columns]="fileUploadJobLogsColumns" [enableActionButton]="false"
+    [downloadFileName]="'CodeLabeller_FileUploadJobLogs-' + uploadJobBeingViewed?.jobId">
+  </codelabeller-data-table>
+</p-dialog>

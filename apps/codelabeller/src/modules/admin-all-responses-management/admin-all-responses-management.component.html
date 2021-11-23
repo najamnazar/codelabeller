@@ -1,0 +1,30 @@
+<div class="responses-section" *ngIf="!showEditHistory">
+  <codelabeller-data-table title="All Responses" dataName="responses" [data]="responses" [columns]="columns"
+    [isLoading]="loading" actionButtonColumnLabel="View History" actionButtonIcon="fa fa-history"
+    (clickedRow)="onRowClicked($event)" downloadFileName="CodeLabeller_AllResponses">
+  </codelabeller-data-table>
+</div>
+
+<div class="history-section" *ngIf="showEditHistory">
+  <div class="history-toolbar">
+    <p-toolbar styleClass="p-mb-4">
+      <div class="p-toolbar-group-left">
+        <p-button label="Back to all responses" styleClass="p-button" (onClick)="onBackToAllResponses()">
+        </p-button>
+      </div>
+  
+      <div class="p-toolbar-group-right">
+        <ng-container>
+          <h4>
+            {{ editHistoryFileName }} ({{ editHistoryUser }})
+          </h4>
+        </ng-container>
+      </div>
+    </p-toolbar>
+  </div>
+
+  <codelabeller-data-table title="Edit History" dataName="histories" [data]="editHistories"
+    [columns]="editHistoryColumns" [isLoading]="editHistoryLoading" [enableActionButton]="false"
+    [downloadFileName]="'CodeLabeller_EditHistory-' + editHistoryFileName + '-' + editHistoryUser">
+  </codelabeller-data-table>
+</div>

@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql:5.7.32
+    ports:
+    - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: <ENTER PASSWORD>
+    volumes:
+    - codelabellerdata:/var/lib/mysql
+  redis:
+    image: redis:alpine
+    restart: always
+    command: redis-server --requirepass <ENTER PASSWORD>
+    ports:
+    - 6379:6379
+volumes:
+  codelabellerdata:
+    external: true

@@ -1,0 +1,14 @@
+.nav-container{
+  display: flex;
+  height: calc(100vh - 70px);
+
+  .main-body{
+    width: 100%;
+  }
+
+  .sidenav{
+    width: 0;
+    overflow-y: auto;
+    transition: all 0.25s;
+  }
+}

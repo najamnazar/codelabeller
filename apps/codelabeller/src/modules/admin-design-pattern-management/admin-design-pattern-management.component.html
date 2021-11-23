@@ -1,0 +1,54 @@
+<div class="patterns-toolbar">
+  <p-toolbar styleClass="p-mb-4">
+    <div class="p-toolbar-group-left">
+      <button pButton pRipple label="New Design Pattern" icon="pi pi-plus" class="p-button-success p-mr-2"
+        (click)="onAddDesignPattern()"></button>
+    </div>
+
+    <div class="p-toolbar-group-right">
+      <button pButton pRipple label="" icon="fas fa-trash-alt" class="p-button-danger p-ml-2"
+        (click)="onDeleteDesignPattern()"></button>
+    </div>
+  </p-toolbar>
+</div>
+
+<div class="patterns-section">
+  <codelabeller-data-table title="Manage Design Patterns" dataName="patterns" [data]="patterns" [columns]="columns"
+    [isLoading]="loading" actionButtonColumnLabel="Manage" actionButtonIcon="fa fa-edit"
+    (clickedRow)="onRowClicked($event)" downloadFileName="CodeLabeller_DesignPatterns">
+  </codelabeller-data-table>
+</div>
+
+<p-dialog id="addDialog" header="Add Design Pattern" [(visible)]="addingDesignPattern" [closeOnEscape]="true"
+  [style]="{width: '50vw', height: '90%'}" [modal]="true">
+  <p-divider></p-divider>
+  <codelabeller-input-form #addInputForm [inputFields]="addFormInputFields" (submittedResponse)="onSubmitAdd($event)">
+  </codelabeller-input-form>
+</p-dialog>
+
+<p-dialog id="manageDialog" header="Manage Design Pattern" [(visible)]="managingDesignPattern" [closeOnEscape]="true"
+  [style]="{width: '50vw', height: '90%'}" [modal]="true">
+
+  <span>
+    <b>
+      {{ designPatternBeingManaged?.name }}
+    </b>
+  </span>
+  <p-divider></p-divider>
+
+  <codelabeller-input-form #manageInputForm [scrollable]="false" [inputFields]="manageFormInputFields"
+    (submittedResponse)="onSubmitManage($event)">
+  </codelabeller-input-form>
+</p-dialog>
+
+<p-dialog id="deleteDialog" header="Delete Design Pattern" [(visible)]="deletingDesignPattern" [closeOnEscape]="true"
+  [style]="{width: '50vw', height: '90%'}" [modal]="true">
+  <p-divider></p-divider>
+  <b>Only design patterns that have never been used to label responses may be deleted. Design patterns that cannot be deleted
+    will not be shown below.</b>
+  <br />
+  <br />
+  <codelabeller-input-form #deleteInputForm [scrollable]="false" [inputFields]="deleteFormInputFields"
+    (submittedResponse)="onSubmitDelete($event)">
+  </codelabeller-input-form>
+</p-dialog>

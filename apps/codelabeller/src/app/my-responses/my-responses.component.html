@@ -1,0 +1,12 @@
+<codelabeller-navigation *ngIf="authService.hasMadeSuccessfulRequests$.value == true" [toolbar]="toolbar">
+  <div class="responses-section">
+    <codelabeller-data-table title="My Responses" dataName="responses" [data]="responses" [columns]="columns"
+      [isLoading]="loading" actionButtonColumnLabel="View" actionButtonIcon="fa fa-eye"
+      (clickedRow)="onRowClicked($event)"
+      downloadFileName="CodeLabeller_MyResponses"></codelabeller-data-table>
+  </div>
+</codelabeller-navigation>
+
+<ng-template #toolbar>
+  <codelabeller-toolbar buttonIcon="fa fa-arrow-left" (sideButtonClick)="onBack()"></codelabeller-toolbar>
+</ng-template>

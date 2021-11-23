@@ -1,0 +1,26 @@
+.projects-toolbar {
+  margin: 20px;
+}
+
+.projects-section {
+  margin: 20px;
+  height: 85%
+}
+
+.files-section {
+  margin: 20px;
+  height: 85%
+}
+
+::ng-deep .p-dialog-content {
+  height: 100%;
+}
+
+::ng-deep .submit-tooltip {
+  font-size: 12px;
+  min-width: fit-content;
+}
+
+::ng-deep .info-tooltip {
+  font-size: 12px;
+}

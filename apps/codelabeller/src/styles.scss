@@ -1,0 +1,60 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~highlight.js/styles/vs.css';
+
+html, body { 
+  height: 100%;
+  margin: 0;
+  background: #efefef;
+}
+
+body {
+  margin: 0;
+}
+
+/* Syntax highlighting styles */
+pre {
+  display: flex;
+  margin-top: 0;
+  margin-bottom: 0;
+  word-wrap: break-word;
+
+  code {
+    flex: 1;
+    line-height: 1.5em;
+    font-size: 14px;
+    min-height: 100%;
+    padding: 1em 1.2em;
+
+    &.hljs-line-numbers {
+      padding: 0;
+    }
+  }
+}
+
+.hljs-ln {
+  padding: 8px 0;
+
+  tr {
+    &:first-child td {
+      padding-top: 8px !important;
+    }
+
+    &:last-child td {
+      padding-bottom: 8px !important;
+    }
+  }
+}
+
+td.hljs-ln-numbers {
+  user-select: none;
+  text-align: center;
+  border-right: 1px solid gray;
+  vertical-align: top;
+  padding-right: 8px !important;
+  padding-left: 8px !important;
+}
+
+td.hljs-ln-code {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}

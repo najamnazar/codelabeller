@@ -1,0 +1,28 @@
+<p-card styleClass="p-card-shadow" [style]="{height: '100%'}">
+  <div class="p-d-flex p-flex-column full-height">
+    <div class="header">
+      <span class="header-text"><b>Your {{ _responseState === 1 ? "Submitted": "" }} Response</b></span><br />
+
+      <ng-container *ngIf="infoText">
+        <span class="info-text" [innerHTML]="infoText"></span>
+      </ng-container>
+
+      <p-divider></p-divider>
+    </div>
+
+    <div class="body">
+      <ng-container *ngIf="_responseState === 2">
+        <div class="centred-content">
+          <i class="fas fa-ban response-not-allowed-icon"></i>
+          <h3 class="">A response cannot currently be submitted.</h3>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="_responseState !== 2">
+        <codelabeller-input-form [buttonLabel]="_responseState === 1 ? 'Update' : 'Submit'" [inputFields]="inputFields"
+          (responseChange)="onResponseChange($event)" (submittedResponse)="onResponseSubmit($event)">
+        </codelabeller-input-form>
+      </ng-container>
+    </div>
+  </div>
+</p-card>
