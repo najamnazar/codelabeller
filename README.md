@@ -1,3 +1,7 @@
+```diff
+@@ The main branch contains the code for the regular version of CodeLabeller. @@
++ The code for the demo version is available in the demo branch.
+```
 # CodeLabeller
 
 ## Installing Dependencies
@@ -150,7 +154,7 @@ pm2 delete proxy
 - `REDIS_PORT`: The port number on which the Redis server is listening on. Usually "3789".
 - `REDIS_PASSWORD`: The password that will be used to connect to the Redis server.
 
-- `CORPUS_ABSOLUTE_PATH`: The absolute path to the root directory where the corpus will be stored on disk.
+- `CORPUS_ABSOLUTE_PATH`: The absolute path to the directory where the corpus will be stored on disk.
 - `TEMP_UPLOADS_ABSOLUTE_PATH`: The absolute path to the directory where project upload job files that were uploaded to the server will be temporarily stored on disk.
 
 - `GOOGLE_OAUTH_CLIENT_ID`: The Google OAuth 2.0 Client ID required to enable OAuth login for users. Details on how to get one can be found [here](#creating-an-oauth-client-id)
