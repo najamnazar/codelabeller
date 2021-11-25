@@ -1,4 +1,4 @@
-<div class="p-d-flex p-flex-column">
+<div class="p-d-flex p-flex-column full-height-content">
   <div class="card">
     <h1 class="title-text">
       CodeLabeller
@@ -6,20 +6,53 @@
   </div>
   <div>
     <div class="p-d-flex card-container">
-      <div class="p-mr-2 p-as-stretch card">
+      <div class="p-mr-3 p-as-stretch card">
         <p-card styleClass="p-card-shadow">
           <span class="greeting-text">
             <b>Welcome!</b>
+          </span>
+          <br/>
+          <br/>
+          <span class="greeting-subtext">
+            <b>This version of CodeLabeller is a demonstration version, which is a slightly modified version of the production version.</b><br/>
+            <ul>
+              <li>
+                <b>In this demonstration version, you can login using a server-generated demo account.</b><br/>
+              </li>
+              <li>
+                <b>You may also login with an actual Google account (which is normally required in the production version of CodeLabeller).</b><br/>
+              </li>
+            </ul>
+            <br/>
+            <b>User data is automatically reset every hour and is not monitored.</b>
           </span>
         </p-card>
       </div>
     </div>
   </div>
-  <div class="p-mt-auto">
+  <div class="p-mt-auto full-height-content">
     <div class="p-d-flex card-container">
-      <div class="p-mr-2 p-as-stretch card">
-        <p-card styleClass="p-card-shadow centred-content">
-          <p-button label="Sign in with Google" icon="fab fa-google" styleClass="p-button-lg" (click)="login()"></p-button>
+      <div class="p-mr-2 p-as-stretch left-card">
+        <p-card styleClass="p-card-shadow full-height-content">
+            <div class="centred-content">
+              <i class="fas fa-user-astronaut landing-icon"></i>
+              <h3>Demo account</h3>
+              
+              <p-dropdown class="landing-dropdown" [options]="demoAccountsOptions" [(ngModel)]="selectedDemoAccount"
+                optionLabel="accountInfo" placeholder="Select a demo account" [showClear]="true" [required]="true">
+              </p-dropdown>
+
+              <p-button label="Sign in" icon="fas fa-sign-in-alt" styleClass="p-button-lg" (onClick)="loginDemo()" [disabled]="!selectedDemoAccount"></p-button>
+            </div>
+        </p-card>
+      </div>
+      <div class="p-mr-2 p-as-stretch right-card">
+        <p-card styleClass="p-card-shadow full-height-content">
+          <div class="centred-content">
+            <i class="fab fa-google landing-icon"></i>
+            <h3>Google account</h3>
+            <p-button label="Sign in" icon="fas fa-sign-in-alt" styleClass="p-button-lg" (click)="login()"></p-button>
+          </div>
         </p-card>
       </div>
     </div>

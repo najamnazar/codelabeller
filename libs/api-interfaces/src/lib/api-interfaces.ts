@@ -14,3 +14,17 @@ export interface FileResponseSubmissionCheck {
   status: boolean;
   message: string;
 }
+
+export interface DemoAccount {
+  givenName: string;
+  familyName: string;
+  email: string;
+}
+
+export interface DemoAccountToken {
+  token: string;
+}
+
+export interface DemoAccountCheck{
+  exists: boolean;
+}

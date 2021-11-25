@@ -406,7 +406,7 @@ export class AdminUserManagementComponent {
   async onChangeAllowUnlistedUsers() {
     const valueToSet = this.checkbox.checked;
 
-    const confirmation = confirm(`Are you sure you want to ${valueToSet ? 'enable unlisted users to login (public access)' : 'disable unlisted users from logging in (private access)'}?`);
+    const confirmation = confirm(`Are you sure you want to ${valueToSet ? 'enable unlisted users to login (public access)' : 'disable unlisted users from logging in (private access)'}? Demo accounts will not be disabled from logging in.`);
 
     if (!confirmation) {
       this.checkbox.checked = !this.checkbox.checked;

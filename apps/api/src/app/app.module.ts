@@ -10,6 +10,7 @@ import { OptionModule } from '../modules/option/option.module';
 import { ProjectModule } from '../modules/project/project.module';
 import { ResponseModule } from '../modules/response/response.module';
 import { UserModule } from '../modules/user/user.module';
+import { DemoAuthModule } from '../modules/demo-auth/demo-auth.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -24,7 +25,8 @@ import { AppService } from './app.service';
     FileUploadJobModule,
     ResponseModule,
     UserModule,
-    OptionModule
+    OptionModule,
+    DemoAuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

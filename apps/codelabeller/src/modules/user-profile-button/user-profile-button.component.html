@@ -3,6 +3,6 @@
   [ngStyle]="{'background-color': 'rgba(0, 0, 0, 0)', 'border':'white'}" [pTooltip]="getTooltipText()"
   tooltipPosition="bottom" tooltipStyleClass="profile-tooltip" [showDelay]="500">
 
-  <img *ngIf="userProfile?.profileImageSrc" class="profile-image" [src]="userProfile?.profileImageSrc">
+  <img *ngIf="userProfile?.profileImageSrc" class="profile-image" [src]="userProfile?.profileImageSrc | Base64Png">
   <i *ngIf="!(userProfile?.profileImageSrc)" class="far fa-user-circle profile-icon"></i>
 </button>

@@ -2,9 +2,25 @@
   padding: 20px !important;
 }
 
+.card-container {
+  height: 100%;
+}
+
 .card {
   width: 100%;
   padding: 0px 10px 20px 20px;
+}
+
+.left-card {
+  width: 50%;
+  height: 100%;
+  padding: 0px 10px 20px 20px;
+}
+
+.right-card {
+  width: 50%;
+  height: 100%;
+  padding: 0px 20px 20px 10px;
 }
 
 .title-text {
@@ -16,10 +32,43 @@
   font-size: xx-large;
 }
 
+.greeting-subtext {
+  font-size: larger;
+}
+
 .card-text {
   font-size: 15px;
 }
 
+.landing-icon {
+  font-size: 128px;
+}
+
+::ng-deep .landing-dropdown {
+  width: 90%;
+  margin-bottom: 16px;
+    
+  > div {
+    width: 100%;
+  }
+} 
+
 ::ng-deep .centred-content {
-  text-align: center !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+::ng-deep .full-height-content {
+  height: 100%;
+}
+
+::ng-deep .p-card .p-card-body {
+  height: 100%;
+}
+
+::ng-deep .p-card .p-card-content {
+  height: 100%;
 }

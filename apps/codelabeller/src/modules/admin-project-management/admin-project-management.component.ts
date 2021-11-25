@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { IFile, IProject, IResponse } from '@codelabeller/api-interfaces';
 import { MessageService } from 'primeng/api';
-import { DesignPatternService } from '../../services/design-pattern/design-pattern.service';
 import { ProjectService } from '../../services/project/project.service';
 import { FileService } from '../../services/file/file.service';
 import { TableColumn } from '../data-table/table-column.interface';
@@ -14,6 +13,7 @@ import * as JSZip from 'jszip';
 import { FileUpload } from 'primeng/fileupload';
 import { HttpEventType } from '@angular/common/http';
 import { Checkbox } from 'primeng/checkbox';
+import { OptionService } from '../../services/option/option.service';
 
 @Component({
   selector: 'codelabeller-admin-project-management',
@@ -61,7 +61,7 @@ export class AdminProjectManagementComponent {
   isUploadingZip = false;
   percentageUploaded = 0;
 
-  constructor(private projectService: ProjectService, private fileService: FileService, private messageService: MessageService, private designPatternService: DesignPatternService) {
+  constructor(private projectService: ProjectService, private fileService: FileService, private messageService: MessageService, private optionService: OptionService) {
     this.projectService.getAllProjectsAsAdmin().then(projects => {
       this.projects = projects;
       this.loading = false;
@@ -164,6 +164,27 @@ export class AdminProjectManagementComponent {
       field: 'fileName',
       header: 'File Name',
       filterType: 'text'
+    },
+    {
+      field: 'isEnabled',
+      header: 'Enabled?',
+      filterType: 'text',
+      dataTransformer: (data: boolean) => {
+        return data ? 'Yes' : 'No';
+      }
+    },
+    {
+      field: 'isAcceptingResponses',
+      header: 'Accepting Responses?',
+      filterType: 'text',
+      dataTransformer: (data: boolean) => {
+        return data ? 'Yes' : 'No';
+      }
+    },
+    {
+      field: 'numResponsesRequired',
+      header: '# Responses Required',
+      filterType: 'numeric'
     },
     {
       field: 'selectedForUpload',
@@ -432,6 +453,24 @@ export class AdminProjectManagementComponent {
     this.filesToUpload = [];
     this.filesRejectedForUpload = [];
 
+    // Specify default file upload settings
+    let isEnabledSetting = true;
+    let isAcceptingResponsesSetting = true;
+    let numResponsesRequiredSetting = 3;
+    
+    // Fetch current file upload settings
+    try {
+      isEnabledSetting = (await this.optionService.getDefaultAreUploadedFilesEnabledAsAdmin()).value;
+    } catch {}
+    
+    try {
+      isAcceptingResponsesSetting = (await this.optionService.getDefaultAreUploadedFilesAcceptingResponsesAsAdmin()).value;
+    } catch {}
+    
+    try {
+      numResponsesRequiredSetting = (await this.optionService.getDefaultUploadedFilesNumRequiredResponsesAsAdmin()).value;
+    } catch {}
+
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
@@ -496,6 +535,9 @@ export class AdminProjectManagementComponent {
         project: identifiedProject,
         path: identifiedPath,
         fileName: identifiedFileName,
+        isEnabled: isEnabledSetting,
+        isAcceptingResponses: isAcceptingResponsesSetting,
+        numResponsesRequired: numResponsesRequiredSetting,
         valid: valid,
         selectedForUpload: valid,
         rejectionReasons: rejectionReasons
@@ -583,4 +625,7 @@ interface FileEntry {
   valid: boolean;
   selectedForUpload: boolean;
   rejectionReasons: string[];
+  isEnabled?: boolean;
+  isAcceptingResponses?: boolean;
+  numResponsesRequired?: number;
 }

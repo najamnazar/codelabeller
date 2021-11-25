@@ -82,7 +82,8 @@
 
 <p-dialog id="deleteDialog" [header]="'Upload Files to Project: ' + currentProject?.name" [(visible)]="zipSelected"
   [closeOnEscape]="true" [style]="{width: '90vw', height: '90%'}" [modal]="true">
-  The zip file should contain a top-level directory/folder with the same name as the project, that contains the project's files.
+  The zip file should contain a top-level directory/folder with the same name as the project, that contains the project's files. <br/>
+  The values for the 'enabled', 'accepting responses' and 'number of responses required' settings for the files to be uploaded can be changed in the admin settings page.
   <p-divider></p-divider>
 
   <p-toolbar styleClass="p-mb-4">
