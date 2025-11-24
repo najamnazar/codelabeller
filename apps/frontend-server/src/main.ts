@@ -5,9 +5,9 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { readFileSync } from 'fs';
-import * as requestId from 'express-request-id';
-import * as helmet from 'helmet';
-import * as compression from 'compression';
+import requestId from 'express-request-id';
+import helmet from 'helmet';
+import compression from 'compression';
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {

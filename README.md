@@ -4,16 +4,31 @@
 ```
 # CodeLabeller
 
+CodeLabeller is a web-based tool for labeling and annotating code snippets for research purposes.
+
+## Citation
+
+If you use CodeLabeller in your research, please cite:
+
+**Nazar, N., Chen, N., & Chong, C. Y. (2023). "CodeLabeller: A Web-Based Code Annotation Tool for Java Design Patterns and Summaries." *International Journal of Software Engineering and Knowledge Engineering*, 33(07), 993-1009.**
+
+[https://doi.org/10.1142/S0218194023500213](https://www.worldscientific.com/doi/10.1142/S0218194023500213)
+
 ## Installing Dependencies
 
-A Linux/Unix environment is required to run this application (tested using Ubuntu). The following dependencies must be installed:
+**Note:** This project has been updated to work with Node.js v16-24. The original version required Node.js 14.
 
-Node.js:
+### Prerequisites
+
+Node.js (v16 or higher recommended):
 ```bash
-curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+# For Node.js 16 (LTS)
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 
 sudo apt-get install -y nodejs
 ```
+
+**Windows Users:** The application can be run on Windows using PowerShell. Docker Desktop is required for database and Redis services.
 
 Docker:
 ```bash
@@ -54,6 +69,44 @@ npm install pm2 -g
 ```
 
 ## Setting up the app
+
+### Quick Start (Development Mode)
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Configure environment variables:**
+   - Copy `.env.example` to `.env` (if available) or create `.env` file
+   - Set `API_DEPLOY_MODE="DEV"` for development
+   - Configure database and Redis passwords in both `.env` and `docker-compose.yaml`
+   - See [Environment Variables](#environment-variables-for-api-server) section for all required variables
+
+3. **Start Docker containers:**
+   ```bash
+   docker-compose up -d
+   ```
+
+4. **Create the database:**
+   ```sql
+   CREATE DATABASE codelabeller COLLATE 'utf8_bin';
+   ```
+
+5. **Start the development server:**
+   ```bash
+   npm start
+   ```
+   This will start three servers:
+   - Angular dev server: `http://localhost:4201` (for development)
+   - API server: `http://localhost:3333/api`
+   - Frontend server: `http://localhost:4200` (for production builds)
+
+6. **Access the application:**
+   - For development: Open `http://localhost:4201` in your browser
+
+### Detailed Production Setup
+
 1. The `package.json` file needs to be copied to the deployment server, and `npm install` command needs to be run when _starting the project for the first time or whenever new npm project dependencies are added_.
 
 2. [Environment variables](#environment-variables-for-api-server) need to be specified in the provided `.env` file.
@@ -98,23 +151,27 @@ npm install pm2 -g
 
 ## Useful commands
 
-- Linux/MacOS
+### Development Mode
 
 The commands below assume that the current working directory is the project's root directory.
 
-Development commands (localhost)
 ```bash
-# install all project dependencies
+# Install all project dependencies
 npm install
 
-# development
-npm run start
+# Start development servers (Angular dev server on port 4201, API on port 3333)
+npm start
 
-# develop in production mode
-npm run start:prod
+# Access the application
+# - Development: http://localhost:4201
+# - API: http://localhost:3333/api
 ```
 
-Production commands (on a remote server)
+**Note for Modern Node.js:** This project uses Angular 12 which requires the legacy OpenSSL provider flag. This is automatically set in the npm scripts via `NODE_OPTIONS=--openssl-legacy-provider`.
+
+### Production Mode
+
+Production commands (on a remote server):
 ```bash
 # Build application in production mode
 npm run build
@@ -131,6 +188,27 @@ pm2 delete api
 
 pm2 delete proxy
 ```
+
+## Recent Updates (2024)
+
+This project has been updated to work with modern Node.js versions (v16-24). Key changes include:
+
+### Compatibility Improvements
+- Updated NestJS dependencies to v7.6.18 for better compatibility
+- Added legacy OpenSSL provider flag for Node.js 17+ compatibility
+- Fixed import statements to support ES module interop
+- Added `.npmrc` with `legacy-peer-deps=true` for dependency resolution
+- Changed Angular dev server port to 4201 to avoid conflicts with frontend server
+
+### Development Environment
+- Works on Windows with PowerShell and Docker Desktop
+- MySQL 5.7.32 and Redis (Alpine) in Docker containers
+- Requires creating `corpus` and `temp_uploads` directories in project root
+
+### Known Limitations
+- Some TypeScript warnings remain but don't affect functionality
+- Google OAuth configuration required for user login (see [Creating an OAuth Client ID](#creating-an-oauth-client-id))
+- Frontend server (port 4200) requires production build to function properly
 
 ## Environment variables for API server
 

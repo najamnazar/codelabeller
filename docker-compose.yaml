@@ -8,15 +8,14 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: <ENTER PASSWORD>
+      MYSQL_ROOT_PASSWORD: devpassword123
     volumes:
     - codelabellerdata:/var/lib/mysql
   redis:
     image: redis:alpine
     restart: always
-    command: redis-server --requirepass <ENTER PASSWORD>
+    command: redis-server --requirepass devredispass123
     ports:
     - 6379:6379
 volumes:
   codelabellerdata:
-    external: true

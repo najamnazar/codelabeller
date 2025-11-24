@@ -40,7 +40,7 @@ export class AdminProjectManagementComponent {
   managingFile = false;
   fileBeingManaged !: IFile;
 
-  uploadedZip!: JSZip;
+  uploadedZip: any;
   filesToUpload: FileEntry[] = [];
   filesRejectedForUpload: FileEntry[] = [];
   selectedForUploadCount = 0;
@@ -386,28 +386,26 @@ export class AdminProjectManagementComponent {
   }
 
   async onChangeProjectEnablement() {
-    const valueToSet = this.checkbox.checked;
+    if (!this.currentProject) {
+      return;
+    }
+
+    const valueToSet = this.currentProject.isActive;
 
     const confirmation = confirm(`Are you sure you want to ${valueToSet ? 'enable' : 'disable'} the project "${this.currentProject?.name}"?`);
 
     if (!confirmation) {
-      this.checkbox.checked = !this.checkbox.checked;
+      this.currentProject.isActive = !this.currentProject.isActive;
       return;
     }
 
     try {
-      if (!this.currentProject){
-        return;
-      }
-
-      this.currentProject.isActive = this.checkbox.checked;
-
       await this.projectService.updateProjectAsAdmin(this.currentProject);
 
       this.messageService.add({ severity: 'success', summary: 'Project Enablement Setting Changed', detail: `The project "${this.currentProject?.name}" is now ${valueToSet ? 'enabled' : 'disabled'}.` });
 
     } catch (error) {
-      this.checkbox.checked = !this.checkbox.checked;
+      this.currentProject.isActive = !this.currentProject.isActive;
       this.messageService.add({ severity: 'error', summary: 'Project Enablement Change Error', detail: `Unable to change project enablement setting. ${error.error?.message ?? error.message}` });
     }
   }
@@ -483,7 +481,7 @@ export class AdminProjectManagementComponent {
     }
 
     try {
-      this.uploadedZip = await JSZip.loadAsync(fileSelectionEvent.currentFiles[0]);
+      this.uploadedZip = await JSZip.loadAsync(fileSelectionEvent.currentFiles[0]) as any;
     } catch (error) {
       this.messageService.add({ severity: 'error', summary: 'Upload Error', detail: `Only valid .zip files are accepted for upload.` });
       return;
@@ -491,7 +489,7 @@ export class AdminProjectManagementComponent {
 
     this.zipSelected = true;
 
-    this.uploadedZip.forEach((relativePath, file) => {
+    this.uploadedZip.forEach((relativePath: any, file: any) => {
       if (file.dir) {
         return;
       }

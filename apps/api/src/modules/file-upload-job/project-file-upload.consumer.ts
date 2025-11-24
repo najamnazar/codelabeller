@@ -4,7 +4,7 @@ import { getConnectionManager } from 'typeorm';
 import { Job } from 'bull';
 import { join } from 'path';
 import * as StreamZip from 'node-stream-zip';
-import * as md5 from 'md5';
+import md5 from 'md5';
 import * as md5ToUuid from 'md5-to-uuid';
 import { File } from '../file/file.entity';
 import { ProjectService } from '../project/project.service';

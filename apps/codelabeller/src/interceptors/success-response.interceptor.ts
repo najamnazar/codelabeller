@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../modules/auth/auth.service';
 import { ConfigService } from '../services/config/config.service';
-import * as parseUrl from 'url-parse';
+import parseUrl from 'url-parse';
 
 @Injectable()
 export class SuccessResponseInterceptor implements HttpInterceptor {

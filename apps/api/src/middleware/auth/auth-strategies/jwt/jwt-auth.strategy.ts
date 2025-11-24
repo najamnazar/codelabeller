@@ -22,7 +22,8 @@ export class JwtAuthStrategy implements AuthStrategy {
     this.checkJwtPresent(request);
 
     const decodedJwt = this.decodeJwt(request);
-    const issuer = decodedJwt.payload.iss;
+    const payload = typeof decodedJwt.payload === 'string' ? JSON.parse(decodedJwt.payload) : decodedJwt.payload;
+    const issuer = payload.iss;
     const strategy = this.strategiesMap[issuer];
 
     if (!strategy) {

@@ -404,12 +404,12 @@ export class AdminUserManagementComponent {
   }
 
   async onChangeAllowUnlistedUsers() {
-    const valueToSet = this.checkbox.checked;
+    const valueToSet = this.allowUnlisted;
 
     const confirmation = confirm(`Are you sure you want to ${valueToSet ? 'enable unlisted users to login (public access)' : 'disable unlisted users from logging in (private access)'}?`);
 
     if (!confirmation) {
-      this.checkbox.checked = !this.checkbox.checked;
+      this.allowUnlisted = !this.allowUnlisted;
       return;
     }
 
@@ -419,7 +419,7 @@ export class AdminUserManagementComponent {
       this.messageService.add({ severity: 'success', summary: 'Unlisted Account Access', detail: `Unregistered users are now ${valueToSet ? 'able' : 'unable'} to login and access CodeLabeller.` });
 
     } catch (error) {
-      this.checkbox.checked = !this.checkbox.checked;
+      this.allowUnlisted = !this.allowUnlisted;
       this.messageService.add({ severity: 'error', summary: 'Setting Change Error', detail: `Unable to change setting. ${error.error?.message ?? error.message}` });
     }
   }

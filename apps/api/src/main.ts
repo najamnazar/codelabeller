@@ -4,8 +4,8 @@ config();
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { readFileSync } from 'fs';
-import * as helmet from 'helmet';
-import * as compression from 'compression';
+import helmet from 'helmet';
+import compression from 'compression';
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {

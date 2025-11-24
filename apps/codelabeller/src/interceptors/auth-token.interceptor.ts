@@ -8,7 +8,7 @@ import {
 import { OAuthStorage } from 'angular-oauth2-oidc';
 import { from, Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import * as parseUrl from 'url-parse';
+import parseUrl from 'url-parse';
 import { ConfigService } from '../services/config/config.service';
 
 @Injectable()
